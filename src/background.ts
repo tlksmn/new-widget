@@ -18,4 +18,16 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       message,
     });
   }
+
+  if(request.type === "fetch"){
+    fetch(request.payload.url,request.payload.data)
+      .then(response => response.json())
+      .then(response=> {
+          sendResponse(response);
+          console.log(response)
+      })
+      .catch(console.log)
+    return true;
+  }
 });
+
